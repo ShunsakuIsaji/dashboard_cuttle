@@ -1,0 +1,180 @@
+sources:
+  平均泌乳量:
+    endpoint: milk_yield
+    url: https://lin.alic.go.jp/alic/statis/dome/data2/j_excel/5030a.xlsx
+    items:
+      milk_yield_hokkaido:
+        category: milk
+        unit: kg/日/頭
+        label: 北海道平均泌乳量
+        description: 北海道の1日あたり平均泌乳量
+      milk_yield_honshu:
+        category: milk
+        unit: kg/日/頭
+        label: 本州平均泌乳量
+        description: 本州の1日あたり平均泌乳量
+
+  生乳農家販売価格:
+    endpoint: milk_price
+    url: https://lin.alic.go.jp/alic/statis/dome/data2/j_excel/5051A.xlsx
+    items:
+      milk_price:
+        category: milk
+        unit: 円/kg
+        label: 生乳価格
+        description: 生乳農家販売価格
+
+  枝肉の規格別卸売価格:
+    endpoint: carcass_price
+    url: https://lin.alic.go.jp/alic/statis/dome/data2/j_excel/2060a.xlsx
+    items:
+      wagyu_cow_a5:
+        category: fattening
+        unit: 円/kg
+        label: 和牛メスA5
+        description: 和牛メスA5等級の枝肉価格
+      wagyu_cow_a4:
+        category: fattening
+        unit: 円/kg
+        label: 和牛メスA4
+        description: 和牛メスA4等級の枝肉価格
+      wagyu_cow_a3:
+        category: fattening
+        unit: 円/kg
+        label: 和牛メスA3
+        description: 和牛メスA3等級の枝肉価格
+      wagyu_steer_a5:
+        category: fattening
+        unit: 円/kg
+        label: 和牛去勢A5
+        description: 和牛去勢A5等級の枝肉価格
+      wagyu_steer_a4:
+        category: fattening
+        unit: 円/kg
+        label: 和牛去勢A4
+        description: 和牛去勢A4等級の枝肉価格
+      wagyu_steer_a3:
+        category: fattening
+        unit: 円/kg
+        label: 和牛去勢A3
+        description: 和牛去勢A3等級の枝肉価格
+      wagyu_steer_a2:
+        category: fattening
+        unit: 円/kg
+        label: 和牛去勢A2
+        description: 和牛去勢A2等級の枝肉価格
+      dairy_cow_c2:
+        category: fattening
+        unit: 円/kg
+        label: 乳牛メスC2
+        description: 乳牛メスC2等級の枝肉価格
+      cross_cow_b3:
+        category: fattening
+        unit: 円/kg
+        label: 交雑メスB3
+        description: 交雑メスB3等級の枝肉価格
+      cross_cow_b2:
+        category: fattening
+        unit: 円/kg
+        label: 交雑メスB2
+        description: 交雑メスB2等級の枝肉価格
+      cross_steer_b3:
+        category: fattening
+        unit: 円/kg
+        label: 交雑去勢B3
+        description: 交雑去勢B3等級の枝肉価格
+      cross_steer_b2:
+        category: fattening
+        unit: 円/kg
+        label: 交雑去勢B2
+        description: 交雑去勢B2等級の枝肉価格
+
+  子牛の取引頭数と価格:
+    endpoint: calf_price
+    url: https://lin.alic.go.jp/alic/statis/dome/data2/j_excel/2140a.xlsx
+    items:
+      wagyu_female:
+        category: calf
+        unit: 千円/頭
+        label: 和牛メス
+        description: 黒毛和種メスの平均価格
+      wagyu_male:
+        category: calf
+        unit: 千円/頭
+        label: 和牛オス
+        description: 黒毛和種オスの平均価格
+      holstein_female:
+        category: calf
+        unit: 千円/頭
+        label: ホルメス
+        description: ホルスタイン種メスの平均価格
+      holstein_male:
+        category: calf
+        unit: 千円/頭
+        label: ホルオス
+        description: ホルスタイン種オスの平均価格
+      cross_female:
+        category: calf
+        unit: 千円/頭
+        label: 交雑メス
+        description: 交雑種メスの平均価格
+      cross_male:
+        category: calf
+        unit: 千円/頭
+        label: 交雑オス
+        description: 交雑種オスの平均価格
+
+  飼料の輸入価格:
+    endpoint: feed_import
+    url: https://lin.alic.go.jp/alic/statis/dome/data2/j_excel/7011b.xlsx
+    items:
+      corn_price:
+        category: feed
+        unit: 円/t
+        label: トウモロコシ
+        description: トウモロコシの輸入価格
+      sorghum_price:
+        category: feed
+        unit: 円/t
+        label: こうりゃん
+        description: こうりゃんの輸入価格
+      barley_price:
+        category: feed
+        unit: 円/t
+        label: 大麦
+        description: 大麦の輸入価格
+      wheat_price:
+        category: feed
+        unit: 円/t
+        label: 小麦
+        description: 小麦の輸入価格
+      soy_price:
+        category: feed
+        unit: 円/t
+        label: 大豆粕
+        description: 大豆油かすの輸入価格
+      fishmeal_price:
+        category: feed
+        unit: 円/t
+        label: 魚粉
+        description: 魚粉の輸入価格
+      hay_price:
+        category: feed
+        unit: 円/t
+        label: 乾牧草
+        description: 乾牧草の輸入価格
+      haycube_price:
+        category: feed
+        unit: 円/t
+        label: ヘイキューブ
+        description: ヘイキューブの輸入価格
+
+  配合飼料の価格:
+    endpoint: compound_feed
+    url: https://lin.alic.go.jp/alic/statis/dome/data2/j_excel/7022a.xlsx
+    items:
+      compound_price:
+        category: feed
+        unit: 円/t
+        label: 配合飼料
+        description: 配合飼料の工場渡価格
