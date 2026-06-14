@@ -62,7 +62,7 @@
 
 '''mermaid
 erDiagram
-    prices{
+    prices {
         date date
         string source
         string category

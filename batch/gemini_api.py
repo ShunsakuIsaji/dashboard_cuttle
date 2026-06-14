@@ -2,6 +2,7 @@ from pathlib import Path
 from google import genai
 from google.genai import types
 from typing import Any
+import pandas as pd
 import os
 import mimetypes
 
@@ -18,12 +19,14 @@ def build_prompt(source_name: str, source_config: dict[str, Any]) -> str:
 
     return f"""
 あなたは表データ抽出アシスタントです。
-以下の資料から、月次データのみを抽出してください。
 
-対象ソース:
-{source_name}
+以下にタブ区切りCSV形式の表データを送ります。注意事項に従いながら、月次データのみを抽出してください。
 
-使用可能な item は以下のみです。
+注意事項：
+
+- ヘッダ行を自動で判別してください。
+- 年平均は除外し、月次データのみを"YYYY-MM"形式で抽出してください。
+- 使用可能な item は以下のみです。
 新しい item を作らないでください。不明なものは出力しないでください。
 
 {item_text}
@@ -74,11 +77,15 @@ def send_to_gemini(file_path: Path, prompt: str) -> str:
         config=types.UploadFileConfig(mime_type=mime_type),
     )
 
+    # csv = parse_xlsx_to_csv(file_path)
+
+    # print(csv)
+
     response = client.models.generate_content(
-        model="gemini-2.5-flash",
+        model="gemini-2.5-flash-lite",
         contents=[
-            uploaded_file,
             prompt,
+            uploaded_file
         ],
         config=types.GenerateContentConfig(
             response_mime_type="application/json",
@@ -89,3 +96,16 @@ def send_to_gemini(file_path: Path, prompt: str) -> str:
         raise RuntimeError("Gemini returned empty response")
 
     return response.text
+
+def parse_xlsx_to_csv (xlsx_path: Path, is_5051 = False) -> str:
+    
+    if is_5051:
+        # 5051A.xlsx は特殊なフォーマットなので、先に前処理を行う
+        df = pd.read_excel(xlsx_path, sheet_name="5051_生乳農家販売価格")
+    else:
+        df = pd.read_excel(xlsx_path)
+
+    df = df.ffill()
+    df = df.dropna(how='all')
+    tsv = df.to_csv(index=False, sep='\t', header=False)
+    return tsv

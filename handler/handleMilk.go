@@ -9,16 +9,13 @@ import (
 	"github.com/ShunsakuIsaji/dashboard_cuttle/internal/model"
 )
 
-func (app *App) HandleIndex() http.HandlerFunc {
+func (app *App) HandleMilk() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		categories := []string{"milk_price", "wagyu_cow_a5", "wagyu_female", "compound_price"}
-
 		latest := app.PriceRecords.GetLatest()
 
-		// Build chart payload and marshal to JSON for safe insertion into the template
-		chartData := app.PriceRecords.BuildChartData(categories)
+		MilkCategriesNames := app.ItemMetas.GetItemNamesByCategory("milk")
+		chartData := app.PriceRecords.BuildChartData(MilkCategriesNames)
 
-		// payload shape expected by Chart.js
 		payload := struct {
 			Labels   []string                 `json:"labels"`
 			Datasets []map[string]interface{} `json:"datasets"`
@@ -33,7 +30,6 @@ func (app *App) HandleIndex() http.HandlerFunc {
 			if meta, ok := app.ItemMetas.GetItemMeta(id); ok {
 				display = meta.Label
 			}
-
 			values := make([]interface{}, 0, len(ds.Data))
 			for _, vp := range ds.Data {
 				if vp == nil {
@@ -42,7 +38,6 @@ func (app *App) HandleIndex() http.HandlerFunc {
 					values = append(values, *vp)
 				}
 			}
-
 			payload.Datasets = append(payload.Datasets, map[string]interface{}{
 				"label":   display,
 				"data":    values,
@@ -71,7 +66,7 @@ func (app *App) HandleIndex() http.HandlerFunc {
 			ChartJSON:             template.JS(string(b)),
 		}
 
-		if err := app.Template.ExecuteTemplate(w, "index", data); err != nil {
+		if err := app.Template.ExecuteTemplate(w, "milk", data); err != nil {
 			slog.Error("failed to execute template", "error", err)
 			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 			return

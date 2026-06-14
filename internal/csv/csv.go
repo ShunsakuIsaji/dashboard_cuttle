@@ -10,7 +10,7 @@ import (
 	"github.com/ShunsakuIsaji/dashboard_cuttle/internal/model"
 )
 
-func ReadCattlePrices(filePath string) ([]model.CattlePrice, error) {
+func ReadPriceDataFromCSV(filePath string) ([]model.PriceData, error) {
 	file, err := os.Open(filePath)
 	if err != nil {
 		return nil, err
@@ -18,7 +18,7 @@ func ReadCattlePrices(filePath string) ([]model.CattlePrice, error) {
 	defer file.Close()
 
 	reader := csv.NewReader(file)
-	var prices []model.CattlePrice
+	var prices []model.PriceData
 
 	records, err := reader.ReadAll()
 	if err != nil {
@@ -46,7 +46,7 @@ func ReadCattlePrices(filePath string) ([]model.CattlePrice, error) {
 			continue
 		}
 
-		prices = append(prices, model.CattlePrice{
+		prices = append(prices, model.PriceData{
 			Date:     date,
 			Price:    price,
 			Unit:     record[2],

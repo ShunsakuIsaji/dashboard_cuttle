@@ -1,4 +1,4 @@
-{{ define "index" }}
+{{ define "milk" }}
 
 {{ template "header" . }}
 
@@ -41,41 +41,50 @@
 <canvas id="priceChart"></canvas>
 
 <script>
-// chart payload is pre-serialized and passed as template.JS to avoid escaping issues
-const chartPayload = {{ .ChartJSON }};
 const ctx = document.getElementById('priceChart');
 
 new Chart(ctx, {
-    type: 'line',
-    data: chartPayload,
-    options: {
-        scales: {
-                milk_price: {
-                        type: 'linear',
-                        beginAtZero: false,
-                        max: 300,
-                        display: false,
-                },
-                wagyu_cow_a5: {
-                        type: 'linear',
-                        beginAtZero: false,
-                        max: 3000,
-                        display: false,
-                },
-                wagyu_female: {
-                        type: 'linear',
-                        beginAtZero: false,
-                        max: 1000,
-                        display: false,
-                },
-                compound_price: {
-                        type: 'linear',
-                        beginAtZero: false,
-                        max: 100000,
-                        display: false,
-                },
-        }
+  type: 'line',
+  data: {
+    labels: {{ .ChartData.Labels }},
+    datasets: [
+    {{ range .ChartData.DataSets }}
+     {
+      label: '{{ .Label }}',
+      data: {{ .Data }},
+      yAxisID: '{{ .Label }}',
+    },
+    {{ end }}
+    ]
+  },
+  options: {
+    scales: {
+        milk_price: {
+            type: 'linear',
+            beginAtZero: false,
+            max: 300,
+            display: false,
+        },
+        wagyu_cow_a5: {
+            type: 'linear',
+            beginAtZero: false,
+            max: 3000,
+            display: false,
+        },
+        wagyu_female: {
+            type: 'linear',
+            beginAtZero: false,
+            max: 1000,
+            display: false,
+        },
+        compound_price: {
+            type: 'linear',
+            beginAtZero: false,
+            max: 100000,
+            display: false,
+        },
     }
+  }
 });
 </script>
 
